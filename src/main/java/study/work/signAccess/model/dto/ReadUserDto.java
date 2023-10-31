@@ -1,15 +1,12 @@
-package study.work.signAccess.model.dao;
+package study.work.signAccess.model.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
 import java.sql.Timestamp;
-
-@AllArgsConstructor
+@Data
 @Builder
-@Getter
-public class TbUserDao {
+public class ReadUserDto {
     private int id;
     private String name;
     private String introduction;
