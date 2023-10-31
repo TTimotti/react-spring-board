@@ -5,12 +5,11 @@
     <select id="selectUser" resultType="TbUserDao" parameterType="int">
         SELECT
             id,
-            title,
-            content,
-            created_dt,
-            author_id
+            name,
+            introduction,
+            created_dt
         FROM
-            tb_board
+            tb_user
         WHERE
             id = #{uid}
     </select>
