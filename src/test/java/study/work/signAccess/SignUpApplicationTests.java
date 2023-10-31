@@ -1,4 +1,4 @@
-package study.work.signup;
+package study.work.signAccess;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,13 +1,13 @@
-package study.work.signup;
+package study.work.signAccess;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SignUpApplication {
+public class SignAccessApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SignUpApplication.class, args);
+        SpringApplication.run(SignAccessApplication.class, args);
     }
 
 }

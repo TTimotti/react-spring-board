@@ -1,4 +1,4 @@
-package study.work.signup.config;
+package study.work.signAccess.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
