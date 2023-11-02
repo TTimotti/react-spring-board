@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 
-<mapper namespace="study.work.signAccess.mapper.BoardMapper">
+<mapper namespace="study.work.sign_access.mapper.BoardMapper">
     <select id="selectBoard" resultType="TbBoardDao" parameterType="int">
         SELECT
             index,
