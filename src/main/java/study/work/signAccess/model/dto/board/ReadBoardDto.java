@@ -1,4 +1,4 @@
-package study.work.signAccess.model.dto;
+package study.work.signAccess.model.dto.board;
 
 import lombok.Builder;
 import lombok.Data;
