@@ -1,6 +1,7 @@
 package study.work.sign_access.model.dto.user;
 
 import lombok.Data;
+import study.work.sign_access.model.dao.TbUserDao;
 
 @Data
 public class InsertUserDto {

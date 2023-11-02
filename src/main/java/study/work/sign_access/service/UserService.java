@@ -49,8 +49,8 @@ public class UserService {
         return selectUser(index);
     }
 
-    public SelectUserDto selectUser(int uid) {
-        TbUserDao dao = mapper.selectUser(uid);
+    public SelectUserDto selectUser(int idx) {
+        TbUserDao dao = mapper.selectUser(idx);
         if (dao == null) {
             throw new CustomException(CustomErrorCode.USER_NOT_FOUND);
         }

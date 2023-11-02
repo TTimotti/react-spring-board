@@ -11,10 +11,10 @@ public interface UserMapper {
     int selectNextVal();
     void insertUser(TbUserDao user);
     int selectTotalItems(Pagination pagination);
-    TbUserDao selectUser(int uid);
+    TbUserDao selectUser(int idx);
     List<TbUserDao> selectUserList(Pagination pagination);
     void updateUser(TbUserDao user);
-    void deleteUser(int uid);
+    void deleteUser(int idx);
 
 
 }

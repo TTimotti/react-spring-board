@@ -58,7 +58,7 @@
         FROM
             tb_user
         WHERE
-            idx = #{uid}
+            idx = #{idx}
     </select>
 
     <select id="selectUserList" resultType="TbUserDao" parameterType="Pagination">
