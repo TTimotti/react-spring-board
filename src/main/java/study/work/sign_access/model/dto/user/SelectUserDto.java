@@ -34,7 +34,7 @@ public class SelectUserDto implements UserDetails {
 
     @Override
     public String getUsername() {
-        return this.name;
+        return this.id;
     }
 
     @Override

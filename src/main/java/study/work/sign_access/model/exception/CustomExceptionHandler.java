@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class CustomExceptionHandler {
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<CustomErrorResponseDto> handleCustomException(CustomException e, HttpServletRequest request) {
+    public ResponseEntity<CustomErrorResponseDto> handleCustomException(CustomException e) {
         CustomErrorResponseDto errorResponse = CustomErrorResponseDto.builder()
                 .code(e.getCustomErrorCode())
                 .message(e.getDetailMessage())
