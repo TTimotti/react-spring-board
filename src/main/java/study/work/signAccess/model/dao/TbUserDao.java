@@ -3,12 +3,15 @@ package study.work.signAccess.model.dao;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
-@AllArgsConstructor
-@Builder
+
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TbUserDao {
     private int idx;
     private String id;

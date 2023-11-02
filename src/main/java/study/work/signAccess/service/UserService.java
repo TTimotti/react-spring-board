@@ -1,27 +1,32 @@
 package study.work.signAccess.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import study.work.signAccess.mapper.UserMapper;
 import study.work.signAccess.model.dao.TbUserDao;
 import study.work.signAccess.model.dto.user.InsertUserDto;
 import study.work.signAccess.model.dto.user.SelectUserDto;
+import study.work.signAccess.model.dto.user.SelectUserListDto;
 import study.work.signAccess.model.exception.CustomErrorCode;
 import study.work.signAccess.model.exception.CustomException;
 import study.work.signAccess.model.util.Pagination;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserMapper mapper;
     private final PasswordEncoder encoder;
 
+    @Transactional
     public SelectUserDto insertUser(InsertUserDto dto) {
         dto.setPassword(encoder.encode(dto.getPassword()));
         int index = mapper.selectNextVal();
@@ -41,7 +46,6 @@ public class UserService {
             throw new CustomException(CustomErrorCode.DUPLICATE_USER_ID);
         }
 
-
         return selectUser(index);
     }
 
@@ -51,7 +55,7 @@ public class UserService {
             throw new CustomException(CustomErrorCode.USER_NOT_FOUND);
         }
 
-        SelectUserDto user = SelectUserDto.builder()
+        return SelectUserDto.builder()
                 .index(dao.getIdx())
                 .id(dao.getId())
                 .password(dao.getPassword())
@@ -63,14 +67,19 @@ public class UserService {
                 .modifiedDt(dao.getModifiedDt())
                 .deletedDt(dao.getDeletedDt())
                 .build();
-
-        return user;
     }
 
-    public List<SelectUserDto> selectUserList(Pagination pagination) {
+    public SelectUserListDto selectUserList(Pagination pagination) {
+        int total = mapper.selectTotalItems(pagination);
+        pagination.paging(total);
         List<TbUserDao> daoList = mapper.selectUserList(pagination);
 
-        List<SelectUserDto> userList = new ArrayList<>();
+        if (CollectionUtils.isEmpty(daoList)) {
+            throw new CustomException(CustomErrorCode.USER_NOT_FOUND);
+        }
+
+        List<SelectUserDto> dtoList = new ArrayList<>();
+
         for (TbUserDao dao : daoList) {
             SelectUserDto user = SelectUserDto.builder()
                     .index(dao.getIdx())
@@ -84,10 +93,13 @@ public class UserService {
                     .modifiedDt(dao.getModifiedDt())
                     .deletedDt(dao.getDeletedDt())
                     .build();
-            userList.add(user);
+            dtoList.add(user);
         }
 
-        return userList;
+        return SelectUserListDto.builder()
+                .userList(dtoList)
+                .pagination(pagination)
+                .build();
     }
     public void updateUser() {
 

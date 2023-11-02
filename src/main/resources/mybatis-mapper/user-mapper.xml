@@ -3,7 +3,7 @@
 
 <mapper namespace="study.work.signAccess.mapper.UserMapper">
     <select id="selectNextVal" resultType="int">
-        SELECT NEXTVAL(TB_USER_SEQ);
+        SELECT NEXTVAL(TB_USER_SEQ)
     </select>
 
     <insert id="insertUser" parameterType="TbUserDao">
@@ -28,6 +28,20 @@
                 #{introduction}
             )
     </insert>
+
+    <select id="selectTotalItems" resultType="int" parameterType="Pagination">
+        SELECT
+            COUNT(idx)
+        FROM
+            tb_user
+        WHERE 1=1
+        <if test="key == 'name' and value != null">
+            AND name LIKE CONCAT('%',#{value},'%')
+        </if>
+        <if test="key == 'id' and value != null">
+            AND id LIKE CONCAT('%',#{value},'%')
+        </if>
+    </select>
 
     <select id="selectUser" resultType="TbUserDao" parameterType="int">
         SELECT
@@ -54,7 +68,7 @@
             password,
             name,
             email,
-            phone_num
+            phone_num,
             introduction,
             created_dt,
             modified_dt,
@@ -62,12 +76,16 @@
         FROM
             tb_user
         WHERE 1=1
-        <if test="key == 'name'">
+        <if test="key == 'name' and value != null">
             AND name LIKE CONCAT('%',#{value},'%')
         </if>
-        <if test="key == 'id'">
+        <if test="key == 'id' and value != null">
             AND id LIKE CONCAT('%',#{value},'%')
         </if>
+        LIMIT
+            #{limit}
+        OFFSET
+            #{offset}
     </select>
 
     <update id="updateUser" parameterType="int">

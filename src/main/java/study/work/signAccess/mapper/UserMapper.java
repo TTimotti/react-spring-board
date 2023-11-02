@@ -11,8 +11,8 @@ import java.util.List;
 public interface UserMapper {
     int selectNextVal();
     void insertUser(TbUserDao user);
+    int selectTotalItems(Pagination pagination);
     TbUserDao selectUser(int uid);
-    SelectUserDto selectUserById(String id);
     List<TbUserDao> selectUserList(Pagination pagination);
     void updateUser(TbUserDao user);
     void deleteUser(int uid);

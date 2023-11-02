@@ -6,11 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.work.signAccess.model.dto.user.InsertUserDto;
 import study.work.signAccess.model.dto.user.SelectUserDto;
-import study.work.signAccess.model.exception.CustomException;
+import study.work.signAccess.model.dto.user.SelectUserListDto;
 import study.work.signAccess.model.util.Pagination;
 import study.work.signAccess.service.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -18,7 +20,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private final UserService service;
-    @PostMapping(value = "")
+    @PostMapping
     public ResponseEntity<SelectUserDto> createUser(@RequestBody InsertUserDto dto) {
         SelectUserDto data = service.insertUser(dto);
         return ResponseEntity.ok(data);
@@ -28,16 +30,16 @@ public class UserController {
         SelectUserDto data = service.selectUser(uid);
         return ResponseEntity.ok(data);
     }
-    @GetMapping(value = "")
-    public ResponseEntity<List<SelectUserDto>> selectUserList(Pagination pagination) {
-        List<SelectUserDto> data = service.selectUserList(pagination);
+    @GetMapping
+    public ResponseEntity<SelectUserListDto> selectUserList(Pagination pagination) {
+        SelectUserListDto data = service.selectUserList(pagination);
         return ResponseEntity.ok(data);
     }
-    @PatchMapping(value = "")
+    @PatchMapping
     public ResponseEntity<SelectUserDto> updateUser() {
         return null;
     }
-    @DeleteMapping(value = "")
+    @DeleteMapping
     public ResponseEntity<String> deleteUser() {
         return null;
     }
