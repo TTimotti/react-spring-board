@@ -4,14 +4,16 @@
 <mapper namespace="study.work.signAccess.mapper.BoardMapper">
     <select id="selectBoard" resultType="TbBoardDao" parameterType="int">
         SELECT
-            id,
+            index,
             title,
             content,
+            author_id,
             created_dt,
-            author_id
+            modified_dt,
+            deleted_dt
         FROM
             tb_board
         WHERE
-            id = #{uid}
+            idx = #{uid}
     </select>
 </mapper>

@@ -2,15 +2,89 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 
 <mapper namespace="study.work.signAccess.mapper.UserMapper">
+    <select id="selectNextVal" resultType="int">
+        SELECT NEXTVAL(TB_USER_SEQ);
+    </select>
+
+    <insert id="insertUser" parameterType="TbUserDao">
+        INSERT INTO
+            tb_user (
+                idx,
+                id,
+                password,
+                name,
+                email,
+                phone_num,
+                introduction
+            )
+        VALUES
+            (
+                #{idx},
+                #{id},
+                #{password},
+                #{name},
+                #{email},
+                #{phoneNum},
+                #{introduction}
+            )
+    </insert>
+
     <select id="selectUser" resultType="TbUserDao" parameterType="int">
         SELECT
+            idx,
             id,
+            password,
             name,
+            email,
+            phone_num,
             introduction,
-            created_dt
+            created_dt,
+            modified_dt,
+            deleted_dt
         FROM
             tb_user
         WHERE
-            id = #{uid}
+            idx = #{uid}
     </select>
+
+    <select id="selectUserList" resultType="TbUserDao" parameterType="Pagination">
+        SELECT
+            idx,
+            id,
+            password,
+            name,
+            email,
+            phone_num
+            introduction,
+            created_dt,
+            modified_dt,
+            deleted_dt
+        FROM
+            tb_user
+        WHERE 1=1
+        <if test="key == 'name'">
+            AND name LIKE CONCAT('%',#{value},'%')
+        </if>
+        <if test="key == 'id'">
+            AND id LIKE CONCAT('%',#{value},'%')
+        </if>
+    </select>
+
+    <update id="updateUser" parameterType="int">
+        UPDATE
+            tb_user
+        SET
+            name = #{name},
+            introduction = #{introduction}
+        WHERE
+            idx = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="int">
+        DELETE
+        FROM
+            tb_user
+        WHERE
+            idx = #{id}
+    </delete>
 </mapper>
