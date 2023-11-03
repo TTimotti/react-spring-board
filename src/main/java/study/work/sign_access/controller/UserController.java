@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import study.work.sign_access.model.dto.user.InsertUserDto;
 import study.work.sign_access.model.dto.user.SelectUserDto;
 import study.work.sign_access.model.dto.user.SelectUserListDto;
+import study.work.sign_access.model.dto.user.UpdateUserDto;
 import study.work.sign_access.model.util.Pagination;
 import study.work.sign_access.service.UserService;
 
@@ -32,8 +33,9 @@ public class UserController {
         return ResponseEntity.ok(data);
     }
     @PatchMapping
-    public ResponseEntity<SelectUserDto> updateUser() {
-        return null;
+    public ResponseEntity<SelectUserDto> updateUser(@RequestBody UpdateUserDto dto) {
+        SelectUserDto data = service.updateUser(dto);
+        return ResponseEntity.ok(data);
     }
     @DeleteMapping
     public ResponseEntity<String> deleteUser() {

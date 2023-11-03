@@ -34,7 +34,8 @@
             COUNT(idx)
         FROM
             tb_user
-        WHERE 1=1
+        WHERE
+            deleted_dt IS NULL
         <if test="key == 'name' and value != null">
             AND name LIKE CONCAT('%',#{value},'%')
         </if>
@@ -59,6 +60,7 @@
             tb_user
         WHERE
             idx = #{idx}
+        AND deleted_dt IS NULL
     </select>
 
     <select id="selectUserList" resultType="TbUserDao" parameterType="Pagination">
@@ -75,7 +77,8 @@
             deleted_dt
         FROM
             tb_user
-        WHERE 1=1
+        WHERE
+            deleted_dt IS NULL
         <if test="key == 'name' and value != null">
             AND name LIKE CONCAT('%',#{value},'%')
         </if>
@@ -88,14 +91,18 @@
             #{offset}
     </select>
 
-    <update id="updateUser" parameterType="int">
+    <update id="updateUser" parameterType="TbUserDao" >
         UPDATE
             tb_user
         SET
             name = #{name},
-            introduction = #{introduction}
+            email = #{email},
+            phone_num = #{phoneNum},
+            introduction = #{introduction},
+            modified_dt = NOW()
         WHERE
-            idx = #{id}
+            idx = #{idx}
+        AND deleted_dt IS NULL
     </update>
 
     <delete id="deleteUser" parameterType="int">
@@ -103,6 +110,6 @@
         FROM
             tb_user
         WHERE
-            idx = #{id}
+            idx = #{idx}
     </delete>
 </mapper>

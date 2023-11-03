@@ -2,10 +2,11 @@ package study.work.sign_access.model.dto.user;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 @Data
 public class UpdateUserDto {
-    private String id;
-    private String password;
+    private int idx;
     private String name;
     private String email;
     private String phoneNum;

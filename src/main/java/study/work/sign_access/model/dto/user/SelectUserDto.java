@@ -1,5 +1,6 @@
 package study.work.sign_access.model.dto.user;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,15 +12,18 @@ import java.util.Collection;
 @Data
 @Builder
 public class SelectUserDto implements UserDetails {
-    private int index;
+    private int idx;
     private String id;
     private String password;
     private String name;
     private String email;
     private String phoneNum;
     private String introduction;
+    @JsonFormat(timezone = "Asia/Seoul")
     private Timestamp createdDt;
+    @JsonFormat(timezone = "Asia/Seoul")
     private Timestamp modifiedDt;
+    @JsonFormat(timezone = "Asia/Seoul")
     private Timestamp deletedDt;
 
     @Override

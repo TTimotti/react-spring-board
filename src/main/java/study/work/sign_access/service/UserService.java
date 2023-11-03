@@ -12,6 +12,7 @@ import study.work.sign_access.model.dao.TbUserDao;
 import study.work.sign_access.model.dto.user.InsertUserDto;
 import study.work.sign_access.model.dto.user.SelectUserDto;
 import study.work.sign_access.model.dto.user.SelectUserListDto;
+import study.work.sign_access.model.dto.user.UpdateUserDto;
 import study.work.sign_access.model.exception.CustomErrorCode;
 import study.work.sign_access.model.exception.CustomException;
 import study.work.sign_access.model.util.Pagination;
@@ -56,9 +57,9 @@ public class UserService {
         }
 
         return SelectUserDto.builder()
-                .index(dao.getIdx())
+                .idx(dao.getIdx())
                 .id(dao.getId())
-                .password(dao.getPassword())
+                .password(dao.getPassword()) // FIXME
                 .email(dao.getEmail())
                 .phoneNum(dao.getPhoneNum())
                 .name(dao.getName())
@@ -82,9 +83,9 @@ public class UserService {
 
         for (TbUserDao dao : daoList) {
             SelectUserDto user = SelectUserDto.builder()
-                    .index(dao.getIdx())
+                    .idx(dao.getIdx())
                     .id(dao.getId())
-                    .password(dao.getPassword())
+                    .password(dao.getPassword()) // FIXME
                     .email(dao.getEmail())
                     .phoneNum(dao.getPhoneNum())
                     .name(dao.getName())
@@ -101,8 +102,17 @@ public class UserService {
                 .pagination(pagination)
                 .build();
     }
-    public void updateUser() {
-
+    @Transactional
+    public SelectUserDto updateUser(UpdateUserDto dto) {
+        TbUserDao dao = TbUserDao.builder()
+                .idx(dto.getIdx())
+                .name(dto.getName())
+                .email(dto.getEmail())
+                .phoneNum(dto.getPhoneNum())
+                .introduction(dto.getIntroduction())
+                .build();
+        mapper.updateUser(dao);
+        return selectUser(dao.getIdx());
     }
     public void deleteUser() {
 
