@@ -3,7 +3,9 @@ package study.work.sign_access.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +22,12 @@ import study.work.sign_access.model.util.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
     private final UserMapper mapper;
     private final PasswordEncoder encoder;
 
@@ -36,7 +39,7 @@ public class UserService {
                 .idx(index)
                 .id(dto.getId())
                 .password(dto.getPassword())
-                .name(dto.getName())
+                .nickname(dto.getName())
                 .email(dto.getEmail())
                 .phoneNum(dto.getPhoneNum())
                 .introduction(dto.getIntroduction())
@@ -52,18 +55,14 @@ public class UserService {
     }
 
     public SelectUserDto selectUser(int idx) {
-        TbUserDao dao = mapper.selectUser(idx);
-        if (dao == null) {
-            throw new CustomException(CustomErrorCode.USER_NOT_FOUND);
-        }
+        TbUserDao dao = mapper.selectUser(idx).orElseThrow(() -> new CustomException(CustomErrorCode.USER_NOT_FOUND));
 
         return SelectUserDto.builder()
                 .idx(dao.getIdx())
                 .id(dao.getId())
-                .password(dao.getPassword()) // FIXME
                 .email(dao.getEmail())
                 .phoneNum(dao.getPhoneNum())
-                .name(dao.getName())
+                .name(dao.getNickname())
                 .introduction(dao.getIntroduction())
                 .createdDt(dao.getCreatedDt())
                 .modifiedDt(dao.getModifiedDt())
@@ -86,10 +85,9 @@ public class UserService {
             SelectUserDto user = SelectUserDto.builder()
                     .idx(dao.getIdx())
                     .id(dao.getId())
-                    .password(dao.getPassword()) // FIXME
                     .email(dao.getEmail())
                     .phoneNum(dao.getPhoneNum())
-                    .name(dao.getName())
+                    .name(dao.getNickname())
                     .introduction(dao.getIntroduction())
                     .createdDt(dao.getCreatedDt())
                     .modifiedDt(dao.getModifiedDt())
@@ -107,7 +105,7 @@ public class UserService {
     public SelectUserDto updateUser(UpdateUserDto dto) {
         TbUserDao dao = TbUserDao.builder()
                 .idx(dto.getIdx())
-                .name(dto.getName())
+                .nickname(dto.getName())
                 .email(dto.getEmail())
                 .phoneNum(dto.getPhoneNum())
                 .introduction(dto.getIntroduction())
@@ -126,5 +124,13 @@ public class UserService {
         } else {
             throw new CustomException(CustomErrorCode.USER_NOT_FOUND);
         }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+
+        TbUserDao user = mapper.selectUserById(id).orElseThrow(() -> new UsernameNotFoundException("해당 유저가 없음 : " + id));
+
+        return null;
     }
 }

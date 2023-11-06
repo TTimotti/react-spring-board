@@ -55,11 +55,36 @@
             introduction,
             created_dt,
             modified_dt,
-            deleted_dt
+            deleted_dt,
+            emailVerified,
+            authVerified,
+            locked
         FROM
             tb_user
         WHERE
             idx = #{idx}
+        AND deleted_dt IS NULL
+    </select>
+
+    <select id="selectUserById" resultType="TbUserDao" parameterType="String">
+        SELECT
+            idx,
+            id,
+            password,
+            name,
+            email,
+            phone_num,
+            introduction,
+            created_dt,
+            modified_dt,
+            deleted_dt,
+            emailVerified,
+            authVerified,
+            locked
+        FROM
+            tb_user
+        WHERE
+            id = #{id}
         AND deleted_dt IS NULL
     </select>
 
@@ -74,7 +99,10 @@
             introduction,
             created_dt,
             modified_dt,
-            deleted_dt
+            deleted_dt,
+            emailVerified,
+            authVerified,
+            locked
         FROM
             tb_user
         WHERE
