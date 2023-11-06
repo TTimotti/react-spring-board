@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Collection;
 
 @Data
@@ -13,11 +14,10 @@ import java.util.Collection;
 public class SelectUserDto {
     private int idx;
     private String id;
-    private String name;
+    private String nickname;
     private String email;
     private String phoneNum;
     private String introduction;
-    private Instant createdDt;
-    private Instant modifiedDt;
-    private Instant deletedDt;
+    private ZonedDateTime createdDt;
+    private ZonedDateTime modifiedDt;
 }

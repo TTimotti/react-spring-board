@@ -44,7 +44,7 @@ public class UserService implements UserDetailsService {
                 .idx(index)
                 .id(dto.getId())
                 .password(dto.getPassword())
-                .nickname(dto.getName())
+                .nickname(dto.getNickname())
                 .email(dto.getEmail())
                 .phoneNum(dto.getPhoneNum())
                 .introduction(dto.getIntroduction())
@@ -67,11 +67,10 @@ public class UserService implements UserDetailsService {
                 .id(dao.getId())
                 .email(dao.getEmail())
                 .phoneNum(dao.getPhoneNum())
-                .name(dao.getNickname())
+                .nickname(dao.getNickname())
                 .introduction(dao.getIntroduction())
                 .createdDt(dao.getCreatedDt())
                 .modifiedDt(dao.getModifiedDt())
-                .deletedDt(dao.getDeletedDt())
                 .build();
     }
 
@@ -92,11 +91,10 @@ public class UserService implements UserDetailsService {
                     .id(dao.getId())
                     .email(dao.getEmail())
                     .phoneNum(dao.getPhoneNum())
-                    .name(dao.getNickname())
+                    .nickname(dao.getNickname())
                     .introduction(dao.getIntroduction())
                     .createdDt(dao.getCreatedDt())
                     .modifiedDt(dao.getModifiedDt())
-                    .deletedDt(dao.getDeletedDt())
                     .build();
             dtoList.add(user);
         }
@@ -110,7 +108,7 @@ public class UserService implements UserDetailsService {
     public SelectUserDto updateUser(UpdateUserDto dto) {
         TbUserDao dao = TbUserDao.builder()
                 .idx(dto.getIdx())
-                .nickname(dto.getName())
+                .nickname(dto.getNickname())
                 .email(dto.getEmail())
                 .phoneNum(dto.getPhoneNum())
                 .introduction(dto.getIntroduction())

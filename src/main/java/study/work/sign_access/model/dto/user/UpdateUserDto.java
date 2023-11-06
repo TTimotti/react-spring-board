@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 @Data
 public class UpdateUserDto {
     private int idx;
-    private String name;
+    private String nickname;
     private String email;
     private String phoneNum;
     private String introduction;

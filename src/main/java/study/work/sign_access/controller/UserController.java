@@ -25,6 +25,7 @@ public class UserController {
     @GetMapping(value = "/{idx}")
     public ResponseEntity<SelectUserDto> selectUser(@PathVariable int idx) {
         SelectUserDto data = service.selectUser(idx);
+        log.info("DATA={}",data);
         return ResponseEntity.ok(data);
     }
     @GetMapping

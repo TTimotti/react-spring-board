@@ -7,7 +7,7 @@ import study.work.sign_access.model.dao.TbUserDao;
 public class InsertUserDto {
     private String id;
     private String password;
-    private String name;
+    private String nickname;
     private String email;
     private String phoneNum;
     private String introduction;

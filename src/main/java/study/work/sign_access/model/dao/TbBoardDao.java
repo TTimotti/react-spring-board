@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.time.ZonedDateTime;
 
 @Getter
 @Builder
@@ -15,6 +16,6 @@ public class TbBoardDao {
     private int id;
     private String title;
     private String content;
-    private Instant createdDt;
+    private ZonedDateTime createdDt;
     private int authorId;
 }
