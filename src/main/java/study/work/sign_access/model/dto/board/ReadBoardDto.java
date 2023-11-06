@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.time.Instant;
 
 @Data
 @Builder
@@ -11,6 +12,6 @@ public class ReadBoardDto {
     private int id;
     private String title;
     private String content;
-    private Timestamp createdDt;
+    private Instant createdDt;
     private int authorId;
 }

@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 
 @Getter
 @Builder
@@ -15,6 +15,6 @@ public class TbBoardDao {
     private int id;
     private String title;
     private String content;
-    private Timestamp createdDt;
+    private Instant createdDt;
     private int authorId;
 }

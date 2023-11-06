@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 
 
 @Getter
@@ -20,7 +20,7 @@ public class TbUserDao {
     private String email;
     private String phoneNum;
     private String introduction;
-    private Timestamp createdDt;
-    private Timestamp modifiedDt;
-    private Timestamp deletedDt;
+    private Instant createdDt;
+    private Instant modifiedDt;
+    private Instant deletedDt;
 }
