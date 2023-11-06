@@ -11,8 +11,8 @@
     </parent>
 
     <groupId>study.work</groupId>
-    <artifactId>Sign-Up</artifactId>
-    <version>0.0.3</version>
+    <artifactId>sign-access</artifactId>
+    <version>0.0.4</version>
     <name>Sign-Up</name>
     <description>Sign-Up</description>
     <properties>
