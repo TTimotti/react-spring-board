@@ -1,9 +1,6 @@
 package study.work.sign_access.model.dao;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,6 +10,7 @@ import java.util.Collection;
 
 @Getter
 @Builder
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class TbUserDao implements UserDetails {
@@ -44,21 +42,21 @@ public class TbUserDao implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
-    }
+        return locked;
+    } // 계정의 만료 여부
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
-    }
+        return locked;
+    } // 계정의 잠김 여부
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
-    }
+        return locked;
+    } // 비밀번호 만료 여부
 
     @Override
     public boolean isEnabled() {
-        return false;
-    }
+        return locked;
+    } // 계정의 활성화 여부
 }

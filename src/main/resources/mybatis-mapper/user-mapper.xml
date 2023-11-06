@@ -12,7 +12,7 @@
                 idx,
                 id,
                 password,
-                name,
+                nickname,
                 email,
                 phone_num,
                 introduction
@@ -22,7 +22,7 @@
                 #{idx},
                 #{id},
                 #{password},
-                #{name},
+                #{nickname},
                 #{email},
                 #{phoneNum},
                 #{introduction}
@@ -37,7 +37,7 @@
         WHERE
             deleted_dt IS NULL
         <if test="key == 'name' and value != null">
-            AND name LIKE CONCAT('%',#{value},'%')
+            AND nickname LIKE CONCAT('%',#{value},'%')
         </if>
         <if test="key == 'id' and value != null">
             AND id LIKE CONCAT('%',#{value},'%')
@@ -49,7 +49,7 @@
             idx,
             id,
             password,
-            name,
+            nickname,
             email,
             phone_num,
             introduction,
@@ -71,7 +71,7 @@
             idx,
             id,
             password,
-            name,
+            nickname,
             email,
             phone_num,
             introduction,
@@ -93,7 +93,7 @@
             idx,
             id,
             password,
-            name,
+            nickname,
             email,
             phone_num,
             introduction,
@@ -108,7 +108,7 @@
         WHERE
             deleted_dt IS NULL
         <if test="key == 'name' and value != null">
-            AND name LIKE CONCAT('%',#{value},'%')
+            AND nickname LIKE CONCAT('%',#{value},'%')
         </if>
         <if test="key == 'id' and value != null">
             AND id LIKE CONCAT('%',#{value},'%')
@@ -123,7 +123,7 @@
         UPDATE
             tb_user
         SET
-            name = #{name},
+            nickname = #{nickname},
             email = #{email},
             phone_num = #{phoneNum},
             introduction = #{introduction},

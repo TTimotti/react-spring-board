@@ -22,7 +22,6 @@ import study.work.sign_access.model.util.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -31,6 +30,12 @@ public class UserService implements UserDetailsService {
     private final UserMapper mapper;
     private final PasswordEncoder encoder;
 
+    @Override
+    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+        TbUserDao user = mapper.selectUserById(id).orElseThrow(() -> new UsernameNotFoundException("해당 유저가 없음 : " + id));
+        log.info("USER={}", user);
+        return user;
+    }
     @Transactional
     public SelectUserDto insertUser(InsertUserDto dto) {
         dto.setPassword(encoder.encode(dto.getPassword()));
@@ -126,11 +131,5 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 
-        TbUserDao user = mapper.selectUserById(id).orElseThrow(() -> new UsernameNotFoundException("해당 유저가 없음 : " + id));
-
-        return null;
-    }
 }
