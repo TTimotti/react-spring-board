@@ -8,6 +8,8 @@ import study.work.sign_access.model.dto.user.InsertUserDto;
 import study.work.sign_access.model.dto.user.SelectUserDto;
 import study.work.sign_access.model.dto.user.SelectUserListDto;
 import study.work.sign_access.model.dto.user.UpdateUserDto;
+import study.work.sign_access.model.exception.CustomErrorCode;
+import study.work.sign_access.model.exception.CustomException;
 import study.work.sign_access.model.util.Pagination;
 import study.work.sign_access.service.UserService;
 
@@ -22,9 +24,9 @@ public class UserController {
         SelectUserDto data = service.insertUser(dto);
         return ResponseEntity.ok(data);
     }
-    @GetMapping(value = "/{uid}")
-    public ResponseEntity<SelectUserDto> selectUser(@PathVariable int uid) {
-        SelectUserDto data = service.selectUser(uid);
+    @GetMapping(value = "/{idx}")
+    public ResponseEntity<SelectUserDto> selectUser(@PathVariable int idx) {
+        SelectUserDto data = service.selectUser(idx);
         return ResponseEntity.ok(data);
     }
     @GetMapping
@@ -37,8 +39,9 @@ public class UserController {
         SelectUserDto data = service.updateUser(dto);
         return ResponseEntity.ok(data);
     }
-    @DeleteMapping
-    public ResponseEntity<String> deleteUser() {
-        return null;
+    @DeleteMapping(value = "/{idx}")
+    public ResponseEntity<String> deleteUser(@PathVariable int idx) {
+        String data = service.deleteUser(idx);
+        return ResponseEntity.ok(data);
     }
 }

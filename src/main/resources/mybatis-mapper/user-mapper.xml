@@ -105,11 +105,13 @@
         AND deleted_dt IS NULL
     </update>
 
-    <delete id="deleteUser" parameterType="int">
-        DELETE
-        FROM
+    <update id="deleteUser" parameterType="int">
+        UPDATE
             tb_user
+        SET
+            deleted_dt = NOW()
         WHERE
             idx = #{idx}
-    </delete>
+        AND deleted_dt IS NULL
+    </update>
 </mapper>

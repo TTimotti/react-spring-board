@@ -9,12 +9,10 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     int selectNextVal();
-    void insertUser(TbUserDao user);
+    int insertUser(TbUserDao user);
     int selectTotalItems(Pagination pagination);
     TbUserDao selectUser(int idx);
     List<TbUserDao> selectUserList(Pagination pagination);
-    void updateUser(TbUserDao user);
-    void deleteUser(int idx);
-
-
+    int updateUser(TbUserDao user);
+    int deleteUser(int idx);
 }

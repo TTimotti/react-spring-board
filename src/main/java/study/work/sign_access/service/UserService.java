@@ -3,6 +3,7 @@ package study.work.sign_access.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -111,10 +112,19 @@ public class UserService {
                 .phoneNum(dto.getPhoneNum())
                 .introduction(dto.getIntroduction())
                 .build();
-        mapper.updateUser(dao);
-        return selectUser(dao.getIdx());
+        int row = mapper.updateUser(dao);
+        if (row > 0){
+            return selectUser(dao.getIdx());
+        } else {
+            throw new CustomException(CustomErrorCode.USER_NOT_FOUND);
+        }
     }
-    public void deleteUser() {
-
+    public String deleteUser(int idx) {
+        int row = mapper.deleteUser(idx);
+        if (row > 0){
+            return "DELETE SUCCESS";
+        } else {
+            throw new CustomException(CustomErrorCode.USER_NOT_FOUND);
+        }
     }
 }
