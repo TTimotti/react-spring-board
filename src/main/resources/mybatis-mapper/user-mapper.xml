@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper3.0//EN" "http://mybatis.org/schema/mybatis-3-mapper.dtd">
 
-<mapper namespace="study.work.sign_access.mapper.UserMapper">
+<mapper namespace="react.spring.board.mapper.UserMapper">
     <select id="selectNextVal" resultType="int">
         SELECT NEXTVAL(TB_USER_SEQ)
     </select>
 
-    <insert id="insertUser" parameterType="TbUserDao">
+    <insert id="insertUser" parameterType="TbUser">
         INSERT INTO
             tb_user (
                 idx,
@@ -36,81 +36,91 @@
             tb_user
         WHERE
             deleted_dt IS NULL
-        <if test="key == 'name' and value != null">
+        <if test="key == 'name' and (value != null and value.trim() != '')">
             AND nickname LIKE CONCAT('%',#{value},'%')
         </if>
-        <if test="key == 'id' and value != null">
+        <if test="key == 'id' and (value != null and value.trim() != '')">
             AND id LIKE CONCAT('%',#{value},'%')
         </if>
     </select>
 
-    <select id="selectUser" resultType="TbUserDao" parameterType="int">
+    <select id="selectUser" resultType="TbUser" parameterType="int">
         SELECT
-            idx,
-            id,
-            password,
-            nickname,
-            email,
-            phone_num,
-            introduction,
-            created_dt,
-            modified_dt,
-            deleted_dt,
-            emailVerified,
-            authVerified,
-            locked
+            u.idx,
+            u.id,
+            u.password,
+            u.nickname,
+            u.email,
+            u.phone_num,
+            u.introduction,
+            u.created_dt,
+            u.modified_dt,
+            u.deleted_dt,
+            u.emailVerified,
+            u.authVerified,
+            u.locked,
+            r.role
         FROM
-            tb_user
+            tb_user u
+        JOIN
+            tb_user_role r ON u.idx = r.idx
         WHERE
-            idx = #{idx}
-        AND deleted_dt IS NULL
+            u.idx = #{idx}
+        AND u.deleted_dt IS NULL
+
     </select>
 
-    <select id="selectUserById" resultType="TbUserDao" parameterType="String">
+    <select id="selectUserById" resultType="TbUser" parameterType="String">
         SELECT
-            idx,
-            id,
-            password,
-            nickname,
-            email,
-            phone_num,
-            introduction,
-            created_dt,
-            modified_dt,
-            deleted_dt,
-            emailVerified,
-            authVerified,
-            locked
+            u.idx,
+            u.id,
+            u.password,
+            u.nickname,
+            u.email,
+            u.phone_num,
+            u.introduction,
+            u.created_dt,
+            u.modified_dt,
+            u.deleted_dt,
+            u.emailVerified,
+            u.authVerified,
+            u.locked,
+            r.role
         FROM
-            tb_user
+            tb_user u
+        JOIN
+            tb_user_role r ON u.idx = r.idx
         WHERE
-            id = #{id}
-        AND deleted_dt IS NULL
+            u.id = #{id}
+        AND u.deleted_dt IS NULL
     </select>
 
-    <select id="selectUserList" resultType="TbUserDao" parameterType="Pagination">
+    <select id="selectUserList" resultType="TbUser" parameterType="Pagination">
         SELECT
-            idx,
-            id,
-            password,
-            nickname,
-            email,
-            phone_num,
-            introduction,
-            created_dt,
-            modified_dt,
-            deleted_dt,
-            emailVerified,
-            authVerified,
-            locked
+            u.idx,
+            u.id,
+            u.password,
+            u.nickname,
+            u.email,
+            u.phone_num,
+            u.introduction,
+            u.created_dt,
+            u.modified_dt,
+            u.deleted_dt,
+            u.emailVerified,
+            u.authVerified,
+            u.locked,
+            r.role
         FROM
-            tb_user
+            tb_user u
+        JOIN
+            tb_user_role r ON u.idx = r.idx
         WHERE
             deleted_dt IS NULL
-        <if test="key == 'name' and value != null">
+        <if test="key == 'name' and (value != null and value.trim() != '')">
             AND nickname LIKE CONCAT('%',#{value},'%')
         </if>
-        <if test="key == 'id' and value != null">
+        <if test="key == 'id' and (value != null and value.trim() != '')">
             AND id LIKE CONCAT('%',#{value},'%')
         </if>
         LIMIT
@@ -119,7 +129,7 @@
             #{offset}
     </select>
 
-    <update id="updateUser" parameterType="TbUserDao" >
+    <update id="updateUser" parameterType="TbUser" >
         UPDATE
             tb_user
         SET
